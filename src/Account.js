@@ -1,112 +1,79 @@
 import './Account.css';
-import { useEffect, useState } from "react";
-import accountService from "./services/account.service";
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CustomNavbar from './CustomNavbar';
+import { useEffect, useState } from "react";
+import accountService from "./services/account.service";
 
 const Account = () => {
 
     const [balance, setBalance] = useState("");
+    const [username, setUsername] = useState("");
 
-    const navigate = useNavigate();
 
-    const loadAccountBalance = () => {
+    const loadAccountInfo = () => {
         accountService.loadAccountData().then(
             (response) => {
                 setBalance(response.data.balance);
+                setUsername(response.data.username);
             }
         )
     }
 
-    const handleLogout = () => {
-        localStorage.removeItem("accessToken");
-        navigate("/");
-    }
-
     useEffect(() => {
-        loadAccountBalance();
-    }, []);
-
+            loadAccountInfo();
+        }, []);
 
     return (
         <div>
-            <Navbar bg="dark"  data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
-                <Container>
-                    <Navbar.Brand href="#home">Spring Bank</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
-                            Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">
-                            Separated link
-                        </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    <Navbar.Text className="mx-3">
-                        Balance: <a style={{color:"white"}}>{balance} $</a>
-                    </Navbar.Text>
-                    <Navbar.Text className="mx-4">
-                        Signed in as: <a href="#login">Mark Otto</a>
-                    </Navbar.Text>
-                    <Button variant="secondary" onClick={handleLogout}>Log Out</Button>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+            <CustomNavbar />
 
-            <div style={{width:"60%", marginLeft:"30%", marginTop:"100px"}}>
-            <Table className="table-dark">
-                <thead>
-                    <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <td>3</td>
-                    <td colSpan={2}>Larry the Bird</td>
-                    <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </Table>
+            <div style={{ width: "60%", marginLeft: "30%", marginTop: "100px", textAlign: "center" }}>
+
+                <div style={{height:"130px", marginBottom:"10px", display:"flex"}}>
+                    <div style={{backgroundColor:"#6d747d", height:"100%", width:"50%", borderTopLeftRadius:'10px', borderBottomLeftRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                        <h2 style={{fontWeight:"bold", color:"#232627", display:"flex", textAlign:"center", justifyContent:"center", }}>Hello!<h4 style={{marginLeft:"20px", marginTop:"5px"}}>{username}</h4></h2>
+                    </div>
+                    <div style={{backgroundColor:"#6d747d", height:"100%", width:"50%", borderTopRightRadius:"10px", borderBottomRightRadius:'10px', display:"flex", alignItems:"center", justifyContent:"center"}}>
+                        <h4 style={{color:"#232627"}}>Balance: <a style={{textDecoration:"underline"}}>{balance} $</a></h4>    
+                    </div>
+                </div>
+
+                <Table className="table-dark">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nadawca</th>
+                            <th>Data</th>
+                            <th>Kwota</th>
+                            <th>Operacje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td colSpan={2}>Larry the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </Table>
             </div>
-        
-        
-    
 
-           
-          
         </div>
     );
-    
+
 }
 
 
