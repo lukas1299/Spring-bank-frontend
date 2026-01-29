@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import {ReactComponent as Bell} from './icons/bell-fill.svg';
 
 export default function CustomNavbar() {
 
@@ -20,8 +21,8 @@ export default function CustomNavbar() {
     const loadAccountInfo = () => {
         accountService.loadAccountData().then(
             (response) => {
-                setBalance(response.data.balance);
-                setUsername(response.data.username);
+                setBalance(response.balance);
+                setUsername(response.username);
             }
         )
     }
@@ -64,6 +65,7 @@ export default function CustomNavbar() {
                         <Navbar.Text className="mx-4">
                             Signed in as: <a href="/account">{username}</a>
                         </Navbar.Text>
+                        <Bell className="mx-4" fill="white"></Bell>
                         <Button variant="secondary" onClick={handleLogout}>Log Out</Button>
                     </Navbar.Collapse>
                 </Container>
