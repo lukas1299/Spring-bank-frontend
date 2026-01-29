@@ -7,7 +7,7 @@ const loadAccountData = async () => {
             "Authorization": localStorage.getItem("accessToken")
         }
     });
-    return response;
+    return response.data;
 }
 
 const accountService = {
