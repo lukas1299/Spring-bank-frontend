@@ -1,22 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CustomNavbar from './CustomNavbar';
+import CustomNavbar from './components/CustomNavbar';
 import { useEffect, useState } from "react";
 import accountService from "./services/account.service";
 import transactionService from './services/transaction.service';
 import currencyService from './services/currency.service';
 
 import {ReactComponent as OpenBook} from './icons/book.svg';
-import {ReactComponent as CashCoin} from './icons/cash-coin.svg';
 import {ReactComponent as CreditCardItem} from './icons/credit-card.svg';
-import {ReactComponent as CheckIcon} from './icons/check-circle-fill.svg';
-import {ReactComponent as XIcon} from './icons/x-circle-fill.svg';
-import {ReactComponent as QuestionIcon} from './icons/question-circle-fill.svg';
 import {ReactComponent as Cart} from './icons/cart4.svg';
+
 import "flag-icons/css/flag-icons.min.css";
 import person from './img/person.png';
+
 import { useNavigate } from 'react-router-dom';
+import Card from './components/Card';
 
 const CreditCard = () => {
+
     const [balance, setBalance] = useState("");
     const [username, setUsername] = useState("");
     const [accountNumber, setAccountNumber] = useState("");
@@ -24,7 +24,6 @@ const CreditCard = () => {
     const [cadRate, setCadRate] = useState("");
     const [gbpRate, setGbpRate] = useState("");
 
-    const [transactions, setTransactions] = useState([]);
     const navigate = useNavigate();
 
     const loadAccountInfo = async () => {
@@ -36,11 +35,6 @@ const CreditCard = () => {
 
         return response;
 
-    }
-
-    const loadTransactionData = async (accountNumber, status) => {
-        const response = await transactionService.loadTransactionData(accountNumber, status);
-        setTransactions(response);
     }
 
     const loadCurrencyRates = async (code) => {
@@ -58,7 +52,7 @@ const CreditCard = () => {
     useEffect(() => {
         const loadData = async () => {
             const accNumber = await loadAccountInfo();
-            await loadTransactionData(accNumber.accountNumber, null); 
+           
         };
 
         loadData();
@@ -104,7 +98,6 @@ const CreditCard = () => {
                                 <a style={{color:"white", margin:"5px", fontWeight:"bold"}}>CAD <span class="fi fi-ca"></span></a>
                                 <a style={{color:"white", margin:"5px"}}>{cadRate}</a>
                                
-                                
                             </div>
                             <div style={{display:"flex", justifyContent:"center"}}>
                                 <a style={{color:"white", margin:"5px", fontWeight:"bold"}}>USD <span class="fi fi-us"></span></a>
@@ -116,8 +109,6 @@ const CreditCard = () => {
                                 <a style={{color:"white", margin:"5px"}}>{gbpRate}</a>
                                 
                             </div>
-                            
-                          
                         </div>
                         
                     </div>
@@ -127,9 +118,17 @@ const CreditCard = () => {
                     <div style={{ backgroundColor: "#212529", height: "100%", width: "50%", borderTopLeftRadius: '10px', borderBottomLeftRadius: "10px", display: "flex", alignItems: "center", justifyContent: "left" }}>
                         <h4 style={{ fontWeight: "bold", color: "white", textDecoration:"", display: "flex", marginLeft:"15%", textShadow:"1px 1px 2px black"}}>Dostępne karty płatnicze</h4>
                     </div>
-                    <div style={{ backgroundColor: "#212529", height: "100%", width: "50%", borderTopRightRadius: "10px", borderBottomRightRadius: '10px', display: "flex", alignItems: "center", justifyContent: "center" }}>
-                       
+                    <div style={{ backgroundColor: "#212529", height: "100%", width: "50%", borderTopRightRadius: "10px", borderBottomRightRadius: '10px', display: "flex", alignItems: "center", justifyContent: "right" }}>
+                       <div style={{display:"flex", marginRight:"10px"}}>
+                        <a style={{color:"white", cursor:"pointer", fontWeight:"bold", marginRight:"20px"}}>Zamów nową kartę</a>
+                    
+                       </div>
                     </div>
+                </div>  
+
+                <div style={{backgroundColor:"#212529", height:"410px", borderRadius:"10px", display:"flex"}}>
+                    <Card cardNumber={"3441 0000 3414 4356"} username={"John"} surname={"Snow"} expitedTime={"10/30"}/>
+                    <Card cardNumber={"4325 0000 5455 6345"} username={"Carl"} surname={"White"} expitedTime={"11/32"}/>
                 </div>
 
                 

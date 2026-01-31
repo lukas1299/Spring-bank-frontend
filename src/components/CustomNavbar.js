@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import accountService from "./services/account.service";
+import accountService from "../services/account.service";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,6 +8,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import {ReactComponent as Bell} from './icons/bell-fill.svg';
+import {ReactComponent as Bank} from './icons/bank.svg';
+import {ReactComponent as LogOut} from './icons/box-arrow-left.svg';
 
 export default function CustomNavbar() {
 
@@ -41,11 +43,11 @@ export default function CustomNavbar() {
         <div>
             <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand>Spring Bank</Navbar.Brand>
+                    <Navbar.Brand><Bank style={{width:"25px", height:"25px" ,color:"#41a23e"}} />  Spring Bank</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="/transactions">Transactions</Nav.Link>
+                            <Nav.Link href="/transactions">Transakcje</Nav.Link>
                             <Nav.Link >Link</Nav.Link>
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -60,13 +62,13 @@ export default function CustomNavbar() {
                             </NavDropdown>
                         </Nav>
                         <Navbar.Text className="mx-3">
-                            Balance: <a style={{ color: "white" }} href="/#">{balance} $</a>
+                            Dostępne środki: <a style={{ color: "white" }}>{balance} $</a>
                         </Navbar.Text>
                         <Navbar.Text className="mx-4">
-                            Signed in as: <a href="/account">{username}</a>
+                            Konto: <a href="/account">{username}</a>
                         </Navbar.Text>
                         <Bell className="mx-4" fill="white"></Bell>
-                        <Button variant="secondary" onClick={handleLogout}>Log Out</Button>
+                        <Button variant="secondary" onClick={handleLogout}><LogOut /></Button>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

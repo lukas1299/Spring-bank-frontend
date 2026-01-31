@@ -1,14 +1,13 @@
 import './Account.css';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CustomNavbar from './CustomNavbar';
+import CustomNavbar from './components/CustomNavbar';
 import { useEffect, useState } from "react";
 import accountService from "./services/account.service";
 import transactionService from './services/transaction.service';
 import currencyService from './services/currency.service';
 
 import {ReactComponent as OpenBook} from './icons/book.svg';
-import {ReactComponent as CashCoin} from './icons/cash-coin.svg';
 import {ReactComponent as CreditCardItem} from './icons/credit-card.svg';
 import {ReactComponent as CheckIcon} from './icons/check-circle-fill.svg';
 import {ReactComponent as XIcon} from './icons/x-circle-fill.svg';
