@@ -1,11 +1,11 @@
-import './Account.css';
+
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CustomNavbar from './components/CustomNavbar';
+import CustomNavbar from './CustomNavbar';
 import { useEffect, useState, useRef } from "react";
-import accountService from "./services/account.service";
-import transactionService from './services/transaction.service';
-import currencyService from './services/currency.service';
+import accountService from "../services/account.service";
+import transactionService from '../services/transaction.service';
+import currencyService from '../services/currency.service';
 
 import { ReactComponent as OpenBook } from './icons/book.svg';
 import { ReactComponent as CreditCardItem } from './icons/credit-card.svg';
@@ -33,6 +33,12 @@ const Account = () => {
     const [transactions, setTransactions] = useState([]);
 
     const navigate = useNavigate();
+
+    const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
 
     const loadAccountInfo = async () => {
         const response = await accountService.loadAccountData();
@@ -64,7 +70,7 @@ const Account = () => {
     }
 
     const handleLeftArrowClick = () => {
-
+        handleChange();
         if (pageEl.current > 0) {
             pageEl.current = pageEl.current - 1;
             setCurrentPage(pageEl.current);
@@ -110,7 +116,6 @@ const Account = () => {
         <div>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
             <CustomNavbar />
-
             <div style={{ marginLeft: "5%", marginTop: "100px", display: "flex" }}>
 
                 <div style={{ backgroundColor: "#212529", width: "300px", height: "550px", marginRight: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
@@ -187,10 +192,10 @@ const Account = () => {
                         </thead>
                         <tbody>
                             {transactions.map(transaction => (
-                                <tr key={transaction.id} style={{ backgroundColor: "#c34f41", height: "50px" }}>
+                                <tr key={transaction.id} style={{ backgroundColor: "#c34f41", height: "57px" }}>
                                     <td>.</td>
                                     <td>{transaction.createDate}</td>
-                                    <td>{transaction.amount} $</td>
+                                    <td>{transaction.amount}.0 PLN</td>
                                     {transaction.transactionStatus === "REALIZED"
                                         ? <td style={{ color: "green", fontWeight: "bold" }}><CheckIcon style={{ color: "#41a23e" }} /></td>
                                         : transaction.transactionStatus === "CANCELED"
@@ -208,8 +213,6 @@ const Account = () => {
 
         </div>
     );
-
 }
-
 
 export default Account;

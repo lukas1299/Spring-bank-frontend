@@ -2,10 +2,9 @@ import './App.css';
 import {Routes, Route } from 'react-router-dom';
 
 import Login from './Login';
-import Account from './Account';
+import Account from './components/Account';
 import Transaction from './Transaction';
-import CreditCard from './CreditCard';
-
+import CreditCard from './components/CreditCard';
 
 function App() {
 
