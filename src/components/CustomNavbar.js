@@ -4,18 +4,24 @@ import accountService from "../services/account.service";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Bell } from './icons/bell-fill.svg';
 import { ReactComponent as Bank } from './icons/bank.svg';
 import { ReactComponent as LogOut } from './icons/box-arrow-left.svg';
+import Button from 'react-bootstrap/Button';
+import TransferModal from "./TransferModal";
 
 export default function CustomNavbar() {
 
     const [balance, setBalance] = useState("");
     const [username, setUsername] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
     const navigate = useNavigate();
+
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
     const loadAccountInfo = () => {
         accountService.loadAccountData().then(
@@ -44,7 +50,7 @@ export default function CustomNavbar() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="/transactions">Nowy przelew</Nav.Link>
+                            <Nav.Link onClick={handleShow}>Nowy przelew</Nav.Link>
                             <Nav.Link href="/transactions">Finanse</Nav.Link>
                             <Nav.Link href="/transactions">Odbiorcy</Nav.Link>
                         </Nav>
@@ -59,6 +65,7 @@ export default function CustomNavbar() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <TransferModal show={showModal} handleClose={handleClose} />
         </div>)
 
 }

@@ -15,9 +15,14 @@ import { ReactComponent as QuestionIcon } from './icons/question-circle-fill.svg
 import { ReactComponent as Cart } from './icons/cart4.svg';
 import { ReactComponent as ArrowLeft } from './icons/arrow-left.svg';
 import { ReactComponent as ArrowRight } from './icons/arrow-right.svg';
+import { ReactComponent as ReplyArrow } from './icons/reply-fill.svg';
+import { ReactComponent as QuestionCircle } from './icons/question-circle.svg';
 import "flag-icons/css/flag-icons.min.css";
 import person from './img/person.png';
 import { useNavigate } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const Account = () => {
 
@@ -48,7 +53,6 @@ const Account = () => {
         setAccountNumber(response.accountNumber);
 
         return response;
-
     }
 
     const loadTransactionData = async (accountNumber, status, page) => {
@@ -115,7 +119,9 @@ const Account = () => {
     return (
         <div>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" />
+            
             <CustomNavbar />
+            
             <div style={{ marginLeft: "5%", marginTop: "100px", display: "flex" }}>
 
                 <div style={{ backgroundColor: "#212529", width: "300px", height: "550px", marginRight: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
@@ -203,7 +209,7 @@ const Account = () => {
                                             : transaction.transactionStatus === "PENDING"
                                                 ? <td style={{ color: "yellow", fontWeight: "bold" }}><QuestionIcon style={{ color: "#dcd04b" }} /></td>
                                                 : <td>.</td>}
-                                    <td>.</td>
+                                    <td><ReplyArrow style={{cursor:"pointer"}} /> <QuestionCircle style={{cursor:"pointer"}} /></td>
                                 </tr>
                             ))}
                         </tbody>
